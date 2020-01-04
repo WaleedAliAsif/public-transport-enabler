@@ -104,4 +104,7 @@ public enum NetworkId {
 
     // Hungary
     HUNGARY,
+    
+    //Israel
+    IL,
 }
