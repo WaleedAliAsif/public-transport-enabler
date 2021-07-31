@@ -66,6 +66,10 @@ Just replace it with the provider you want to test.
   * `NetworkId.PT`
   * [PortugalProvider.java](src/de/schildbach/pte/PortugalProvider.java)
   * [PortugalProviderLiveTest.java](test/de/schildbach/pte/live/PortugalProviderLiveTest.java)
+* [Switzerland](https://github.com/schildbach/public-transport-enabler/pull/383)
+  * `NetworkId.SEARCHCH`
+  * [CHSearchProvider.java](src/de/schildbach/pte/CHSearchProvider.java)
+  * [CHSearchProviderLiveTest.java](test/de/schildbach/pte/live/CHSearchProviderLiveTest.java)
 
 There is a [mirror on github](https://github.com/opentransitmap/public-transport-enabler/), but for merge request please refer to our [Gitlab repository](https://gitlab.com/opentransitmap/public-transport-enabler).
 
