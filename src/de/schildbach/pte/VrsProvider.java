@@ -17,6 +17,7 @@
 
 package de.schildbach.pte;
 
+import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.io.IOException;
@@ -100,12 +101,12 @@ public class VrsProvider extends AbstractNetworkProvider {
 
         @Override
         public boolean canQueryLater() {
-            return this.canQueryLater;
+            return this.canQueryLater && this.lastDeparture != null;
         }
 
         @Override
         public boolean canQueryEarlier() {
-            return this.canQueryEarlier;
+            return this.canQueryEarlier && this.firstArrival != null;
         }
 
         public void departure(Date departure) {
@@ -486,7 +487,7 @@ public class VrsProvider extends AbstractNetworkProvider {
                             position = new Position(postName);
                         }
                     }
-                    final Location destination = new Location(LocationType.STATION, null /* id */, null /* place */,
+                    final Location destination = new Location(LocationType.ANY, null /* id */, null /* place */,
                             lineObj.getString("direction"));
 
                     final LineDestination lineDestination = new LineDestination(line, destination);
@@ -817,7 +818,7 @@ public class VrsProvider extends AbstractNetworkProvider {
                                 segmentDestination, arrivalPlanned, points, (int) distance));
                     } else if (type.equals("publicTransport")) {
                         legs.add(new Trip.Public(line, direction != null
-                                ? new Location(LocationType.STATION, null /* id */, null /* place */, direction) : null,
+                                ? new Location(LocationType.ANY, null /* id */, null /* place */, direction) : null,
                                 new Stop(segmentOrigin, true /* departure */, departurePlanned, departurePredicted,
                                         segmentOriginPosition, segmentOriginPosition),
                                 new Stop(segmentDestination, false /* departure */, arrivalPlanned, arrivalPredicted,
@@ -1083,8 +1084,11 @@ public class VrsProvider extends AbstractNetworkProvider {
     }
 
     private final static Date parseDateTime(final String dateTimeStr) throws ParseException {
+        final int lastColonIndex = dateTimeStr.lastIndexOf(':');
+        if (lastColonIndex < 0)
+            throw new ParseException(dateTimeStr, lastColonIndex);
         return new SimpleDateFormat("yyyy-MM-dd'T'kk:mm:ssZ")
-                .parse(dateTimeStr.substring(0, dateTimeStr.lastIndexOf(':')) + "00");
+                .parse(dateTimeStr.substring(0, lastColonIndex) + "00");
     }
 
     private final Point stationToCoord(String id) throws IOException {
