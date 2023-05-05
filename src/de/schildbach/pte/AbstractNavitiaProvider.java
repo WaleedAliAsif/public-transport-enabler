@@ -86,8 +86,35 @@ public abstract class AbstractNavitiaProvider extends AbstractNetworkProvider {
             Capability.TRIPS
     );
 
-    protected HttpUrl apiBase = HttpUrl.parse("https://api.navitia.io/").newBuilder().addPathSegment(SERVER_VERSION)
-            .build();
+    // protected HttpUrl apiBase = HttpUrl.parse("https://api.navitia.io/").newBuilder().addPathSegment(SERVER_VERSION)
+    //         .build();
+
+
+  private HttpUrl apiBase;
+
+    public AbstractNavitiaProvider(NetworkId networkId, String authorization) {
+        super(networkId, authorization);
+        if (networkId == NetworkId.TUNISIA) {
+            apiBase = HttpUrl.parse("http://34.29.76.75/").newBuilder().addPathSegment(SERVER_VERSION).build();
+        } else {
+            apiBase = HttpUrl.parse("https://api.navitia.io/").newBuilder().addPathSegment(SERVER_VERSION).build();
+        }
+    }
+
+    public AbstractNavitiaProvider(NetworkId networkId, HttpUrl apiBase, String authorization) {
+        super(networkId, authorization);
+        this.apiBase = apiBase;
+    }
+
+    @Override
+    public List<Capability> capabilities() {
+        return CAPABILITIES;
+    }
+
+    @Override
+    public HttpUrl apiBase() {
+        return apiBase;
+    }
 
     private enum PlaceType {
         ADDRESS, ADMINISTRATIVE_REGION, POI, STOP_POINT, STOP_AREA

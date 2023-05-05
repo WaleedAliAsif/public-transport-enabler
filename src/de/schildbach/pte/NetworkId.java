@@ -94,7 +94,7 @@ public enum NetworkId {
     NZ,
 
     // Africa
-    GHANA,
+    GHANA, TUNISIA,
 
     // Nicaragua
     NICARAGUA,
