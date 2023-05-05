@@ -14,7 +14,6 @@ dependencies {
     //noinspection GradleDependency
     implementation 'com.squareup.okhttp3:okhttp:3.12.13'
     //noinspection GradleDependency
-      implementation 'com.gitlab.WaleedAliAsif:public-transport-enabler:Tag'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.12.13'
     implementation 'com.google.guava:guava:31.1-android'
     implementation 'org.slf4j:slf4j-api:2.0.7'
@@ -53,9 +52,3 @@ test {
 }
 
 
-allprojects {
-		repositories {
-			...
-			maven { url 'https://jitpack.io' }
-		}
-	}
