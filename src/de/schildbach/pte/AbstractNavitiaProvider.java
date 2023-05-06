@@ -143,8 +143,8 @@ public abstract class AbstractNavitiaProvider extends AbstractNetworkProvider {
     }
 
     public AbstractNavitiaProvider(final NetworkId network, final HttpUrl apiBase, final String authorization) {
-
-        
+         
+         super(network);
         if (network == NetworkId.TUNISIA) {
             apiBase = HttpUrl.parse("http://34.29.76.75/").newBuilder().addPathSegment(SERVER_VERSION).build();
         } else {
@@ -157,8 +157,8 @@ public abstract class AbstractNavitiaProvider extends AbstractNetworkProvider {
     }
 
     public AbstractNavitiaProvider(final NetworkId network, final String authorization) {
+       
         super(network);
-
         if (network == NetworkId.TUNISIA) {
             apiBase = HttpUrl.parse("http://34.29.76.75/").newBuilder().addPathSegment(SERVER_VERSION).build();
         } else {
