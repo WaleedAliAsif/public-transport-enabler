@@ -3,22 +3,17 @@ plugins {
     id 'maven-publish'
 }
 
- allprojects {
-        repositories {
+
+repositories {
             mavenCentral()
             maven { url "https://jitpack.io" }
         }
-    }
-    dependencies {
-        implementation 'com.github.waleedaliasif:public-transport-enabler:v21'
-    }
+   
 
 group = 'de.schildbach.pte'
 archivesBaseName = 'public-transport-enabler'
 
-repositories {
-    mavenCentral() 
-}
+
 
 dependencies {
     //noinspection GradleDependency
