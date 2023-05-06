@@ -75,6 +75,8 @@ import okhttp3.HttpUrl;
  * @author Andreas Schildbach
  * @author Torsten Grote
  */
+
+
 public abstract class AbstractNavitiaProvider extends AbstractNetworkProvider {
     protected final static String SERVER_PRODUCT = "navitia";
     protected final static String SERVER_VERSION = "v1";
@@ -92,29 +94,7 @@ public abstract class AbstractNavitiaProvider extends AbstractNetworkProvider {
 
   private HttpUrl apiBase;
 
-    public AbstractNavitiaProvider(NetworkId networkId, String authorization) {
-        super(networkId, authorization);
-        if (networkId == NetworkId.TUNISIA) {
-            apiBase = HttpUrl.parse("http://34.29.76.75/").newBuilder().addPathSegment(SERVER_VERSION).build();
-        } else {
-            apiBase = HttpUrl.parse("https://api.navitia.io/").newBuilder().addPathSegment(SERVER_VERSION).build();
-        }
-    }
-
-    public AbstractNavitiaProvider(NetworkId networkId, HttpUrl apiBase, String authorization) {
-        super(networkId, authorization);
-        this.apiBase = apiBase;
-    }
-
-    @Override
-    public List<Capability> capabilities() {
-        return CAPABILITIES;
-    }
-
-    @Override
-    public HttpUrl apiBase() {
-        return apiBase;
-    }
+    
 
     private enum PlaceType {
         ADDRESS, ADMINISTRATIVE_REGION, POI, STOP_POINT, STOP_AREA
@@ -163,6 +143,14 @@ public abstract class AbstractNavitiaProvider extends AbstractNetworkProvider {
     }
 
     public AbstractNavitiaProvider(final NetworkId network, final HttpUrl apiBase, final String authorization) {
+
+        
+        if (network == NetworkId.TUNISIA) {
+            apiBase = HttpUrl.parse("http://34.29.76.75/").newBuilder().addPathSegment(SERVER_VERSION).build();
+        } else {
+            apiBase = HttpUrl.parse("https://api.navitia.io/").newBuilder().addPathSegment(SERVER_VERSION).build();
+        }
+
         this(network, authorization);
 
         this.apiBase = apiBase;
@@ -171,7 +159,13 @@ public abstract class AbstractNavitiaProvider extends AbstractNetworkProvider {
     public AbstractNavitiaProvider(final NetworkId network, final String authorization) {
         super(network);
 
-        if (authorization != null)
+        if (network == NetworkId.TUNISIA) {
+            apiBase = HttpUrl.parse("http://34.29.76.75/").newBuilder().addPathSegment(SERVER_VERSION).build();
+        } else {
+            apiBase = HttpUrl.parse("https://api.navitia.io/").newBuilder().addPathSegment(SERVER_VERSION).build();
+        }
+
+        if (authorization != null )
             httpClient.setHeader("Authorization", authorization);
     }
 
