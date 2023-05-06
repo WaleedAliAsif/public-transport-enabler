@@ -145,14 +145,6 @@ public abstract class AbstractNavitiaProvider extends AbstractNetworkProvider {
     public AbstractNavitiaProvider(final NetworkId network, final HttpUrl apiBase, final String authorization) {
           this(network, authorization);
 
-        if (network == NetworkId.TUNISIA) {
-            apiBase = HttpUrl.parse("http://34.29.76.75/").newBuilder().addPathSegment(SERVER_VERSION).build();
-        } else {
-            apiBase = HttpUrl.parse("https://api.navitia.io/").newBuilder().addPathSegment(SERVER_VERSION).build();
-        }
-
-       
-
         this.apiBase = apiBase;
     }
 
@@ -160,9 +152,9 @@ public abstract class AbstractNavitiaProvider extends AbstractNetworkProvider {
        
         super(network);
         if (network == NetworkId.TUNISIA) {
-            apiBase = HttpUrl.parse("http://34.29.76.75/").newBuilder().addPathSegment(SERVER_VERSION).build();
+           this.apiBase = HttpUrl.parse("http://34.29.76.75/").newBuilder().addPathSegment(SERVER_VERSION).build();
         } else {
-            apiBase = HttpUrl.parse("https://api.navitia.io/").newBuilder().addPathSegment(SERVER_VERSION).build();
+            this.apiBase = HttpUrl.parse("https://api.navitia.io/").newBuilder().addPathSegment(SERVER_VERSION).build();
         }
 
         if (authorization != null )
